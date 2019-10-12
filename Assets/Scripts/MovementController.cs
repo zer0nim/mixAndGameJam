@@ -8,6 +8,10 @@ public class MovementController : MonoBehaviour
 	public float		moveSpeed = 10f;
 	[Range(1, 10)]
 	public float		jumpVelocity = 5f;
+	[Range(1, 10)]
+	public float		fallMultiplier = 2.5f;
+	[Range(1, 10)]
+	public float		lowJumpMultiplier = 2f;
 
 	Vector2	_moveDir;
 
@@ -24,6 +28,13 @@ public class MovementController : MonoBehaviour
 
 	void	FixedUpdate() {
 		walk();
+
+		// Better jumping
+		if (rb.velocity.y < 0) {
+			rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.fixedDeltaTime;
+		} else if (rb.velocity.y > 0 && !Input.GetButton("Jump")) {
+			rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.fixedDeltaTime;
+		}
 	}
 
 
