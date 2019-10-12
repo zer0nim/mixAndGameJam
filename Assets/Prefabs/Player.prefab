@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 3725663348894816092}
   - component: {fileID: 3725663348894816095}
   - component: {fileID: 3725663348894816094}
-  m_Layer: 0
+  - component: {fileID: 169396476}
+  - component: {fileID: 169396477}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -106,7 +108,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 0.13380855, y: 0.13341354}
   m_EdgeRadius: 0
 --- !u!50 &3725663348894816094
 Rigidbody2D:
@@ -128,4 +130,38 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!114 &169396476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3725663348894816083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8238b0df2f96d4746838ed54f9f94bf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 3725663348894816094}
+  moveSpeed: 8
+  jumpVelocity: 5
+  groundedHeight: 0.2
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 1
+--- !u!114 &169396477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3725663348894816083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aabb1c2ee0a43c48b1ff5016db8538a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 3725663348894816094}
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
