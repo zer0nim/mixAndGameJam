@@ -146,7 +146,8 @@ MonoBehaviour:
   rb: {fileID: 3725663348894816094}
   moveSpeed: 8
   jumpVelocity: 5
-  groundedHeight: 0.2
+  slideSpeed: 5
+  groundedSkinW: 0.2
   groundMask:
     serializedVersion: 2
     m_Bits: 1

@@ -9,21 +9,20 @@ public class MovementController : MonoBehaviour
 	// jump section
 	[Range(1, 10)]
 	public float		jumpVelocity = 5f;
-	public float		groundedHeight = 0.2f;
+	public float		groundedSkinW = 0.2f;
 
 	public LayerMask	groundMask;
 
 	Vector2	_moveDir;
 	// jump section
 	bool	_jumpRequest = false;
-	bool	_grounded = false;
+	bool	_onGround = false;
 	Vector2 _playerSize;
-	Vector2	_boxSize;
-
+	Vector2	_groundBoxSize;
 
 	void	Awake() {
 		_playerSize = GetComponent<BoxCollider2D>().size;
-		_boxSize = new Vector2(_playerSize.x, groundedHeight);
+		_groundBoxSize = new Vector2(_playerSize.x, groundedSkinW);
 	}
 
 	void    Update() {
@@ -31,7 +30,7 @@ public class MovementController : MonoBehaviour
 		_moveDir.y = Input.GetAxis("Vertical");
 		_moveDir = Vector2.ClampMagnitude(_moveDir, 1);
 
-		if (Input.GetButtonDown("Jump") && _grounded)
+		if (Input.GetButtonDown("Jump") && _onGround)
 			_jumpRequest = true;
 	}
 
@@ -42,8 +41,9 @@ public class MovementController : MonoBehaviour
 		if (_jumpRequest)
 			jump();
 		else {
-			Vector2 boxCenter = (Vector2)transform.position + Vector2.down * (_playerSize.y + _boxSize.y) * 0.5f;
-			_grounded = (Physics2D.OverlapBox(boxCenter, _boxSize, 0f, groundMask) != null);
+			// ground colision
+			Vector2 boxCenter = (Vector2)transform.position + Vector2.down * (_playerSize.y + _groundBoxSize.y) * 0.5f;
+			_onGround = (Physics2D.OverlapBox(boxCenter, _groundBoxSize, 0f, groundMask) != null);
 		}
 	}
 
@@ -57,6 +57,6 @@ public class MovementController : MonoBehaviour
 		rb.velocity += Vector2.up * jumpVelocity;
 
 		_jumpRequest = false;
-		_grounded = false;
+		_onGround = false;
 	}
 }
