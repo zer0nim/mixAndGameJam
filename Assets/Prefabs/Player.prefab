@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3725663348894816094}
   - component: {fileID: 169396476}
   - component: {fileID: 169396477}
+  - component: {fileID: 1922206990}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -74,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.23113209, g: 0.8694972, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -146,7 +147,6 @@ MonoBehaviour:
   rb: {fileID: 3725663348894816094}
   moveSpeed: 8
   jumpVelocity: 5
-  slideSpeed: 5
   groundedSkinW: 0.2
   groundMask:
     serializedVersion: 2
@@ -166,3 +166,20 @@ MonoBehaviour:
   rb: {fileID: 3725663348894816094}
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
+--- !u!114 &1922206990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3725663348894816083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da2403ce93a6d17419aaa071146c2364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 0}
+  zipline: {fileID: 519609474690956272, guid: f79a1ed659ee34e498af56be8637ab48, type: 3}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1025
