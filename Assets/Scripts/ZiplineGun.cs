@@ -7,13 +7,14 @@ public class ZiplineGun : MonoBehaviour
 	public Camera		cam;
 	public GameObject	zipline;
 	public LayerMask	layerMask;
+	public float		snappingRadius = 5f;
 
 	bool		_inPlacement = false;
 	Vector3		_worldPos;
 	GameObject	_ziplineInst;
+	GameObject	_lastTarget = null;
+	Color		_lastTargetColor;
 
-	Ray			_ray;
-	RaycastHit	_hit;
 
 	void Update() {
 		if (Input.GetButtonDown("Fire1") && _inPlacement) {
@@ -36,11 +37,30 @@ public class ZiplineGun : MonoBehaviour
 			updateWorldPos();
 			_ziplineInst.transform.position = _worldPos;
 
-			_ray = cam.ScreenPointToRay(Input.mousePosition);
-			RaycastHit2D hit = Physics2D.Raycast(_ray.origin, _ray.direction, 1f, layerMask);
-			if (hit) {
-				print("We hit " + hit.collider.name);
+			Collider2D[] colliders = Physics2D.OverlapCircleAll (_worldPos, snappingRadius, layerMask);
+			float		nearestDistance = float.MaxValue;
+			GameObject	target = null;
+			// get the nearest collider
+			foreach (Collider2D collider in colliders) {
+				float distance = (_worldPos - collider.transform.position).sqrMagnitude;
+				if (distance < nearestDistance) {
+					nearestDistance = distance;
+					target = collider.gameObject;
+				}
 			}
+
+			if (target != null && _lastTarget != target) {
+				SpriteRenderer	spriteR = target.GetComponentInParent<SpriteRenderer>();
+				if (_lastTarget != null) {
+					_lastTarget.GetComponentInParent<SpriteRenderer>().color = _lastTargetColor;
+				}
+				_lastTargetColor = spriteR.color;
+				spriteR.color = new Color(.9f, 0f, 0f);
+			}
+			else if (target == null && _lastTarget != null) {
+				_lastTarget.GetComponentInParent<SpriteRenderer>().color = _lastTargetColor;
+			}
+			_lastTarget = target;
 		}
 	}
 

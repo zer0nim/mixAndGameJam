@@ -150,7 +150,7 @@ MonoBehaviour:
   groundedSkinW: 0.2
   groundMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1024
 --- !u!114 &169396477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,4 +182,5 @@ MonoBehaviour:
   zipline: {fileID: 519609474690956272, guid: f79a1ed659ee34e498af56be8637ab48, type: 3}
   layerMask:
     serializedVersion: 2
-    m_Bits: 1025
+    m_Bits: 1024
+  snappingRadius: 1
