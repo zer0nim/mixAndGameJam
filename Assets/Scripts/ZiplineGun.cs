@@ -12,9 +12,8 @@ public class ZiplineGun : MonoBehaviour
 	bool		_inPlacement = false;
 	Vector3		_worldPos;
 	GameObject	_ziplineInst;
-	GameObject	_lastTarget = null;
-	Color		_lastTargetColor;
-
+	GameObject	_target = null;
+	Vector2		_targetBox;
 
 	void Update() {
 		if (Input.GetButtonDown("Fire1") && _inPlacement) {
@@ -35,32 +34,35 @@ public class ZiplineGun : MonoBehaviour
 	void	FixedUpdate() {
 		if (_inPlacement) {
 			updateWorldPos();
-			_ziplineInst.transform.position = _worldPos;
 
 			Collider2D[] colliders = Physics2D.OverlapCircleAll (_worldPos, snappingRadius, layerMask);
 			float		nearestDistance = float.MaxValue;
-			GameObject	target = null;
 			// get the nearest collider
+			_target = null;
 			foreach (Collider2D collider in colliders) {
 				float distance = (_worldPos - collider.transform.position).sqrMagnitude;
-				if (distance < nearestDistance) {
+				if (distance < nearestDistance && collider.GetType() == typeof(BoxCollider2D)) {
 					nearestDistance = distance;
-					target = collider.gameObject;
+					_target = collider.gameObject;
+					_targetBox = (Vector2)((BoxCollider2D)collider).bounds.size;
 				}
 			}
 
-			if (target != null && _lastTarget != target) {
-				SpriteRenderer	spriteR = target.GetComponentInParent<SpriteRenderer>();
-				if (_lastTarget != null) {
-					_lastTarget.GetComponentInParent<SpriteRenderer>().color = _lastTargetColor;
-				}
-				_lastTargetColor = spriteR.color;
-				spriteR.color = new Color(.9f, 0f, 0f);
+			// if no target found simply follow the cursor
+			if (_target == null) {
+				_ziplineInst.transform.position = _worldPos;
 			}
-			else if (target == null && _lastTarget != null) {
-				_lastTarget.GetComponentInParent<SpriteRenderer>().color = _lastTargetColor;
+			// else snap to the target
+			else {
+				Vector2 t_pos = _target.transform.position;
+				float xPos = _worldPos.x;
+				if (xPos < t_pos.x - _targetBox.x / 2)
+					xPos = t_pos.x - _targetBox.x / 2;
+				if (xPos > t_pos.x + _targetBox.x / 2)
+					xPos = t_pos.x + _targetBox.x / 2;
+				float yPos = t_pos.y + _targetBox.y / 2;
+				_ziplineInst.transform.position = new Vector3(xPos, yPos, _ziplineInst.transform.position.z);
 			}
-			_lastTarget = target;
 		}
 	}
 
