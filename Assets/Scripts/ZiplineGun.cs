@@ -4,33 +4,49 @@ using UnityEngine;
 
 public class ZiplineGun : MonoBehaviour
 {
-	public Camera		cam;
-	public GameObject	zipline;
-	public LayerMask	layerMask;
-	public float		snappingRadius = 5f;
-	public float		borderOffset = .32f;
+	public BoxCollider2D	boxCollider;
+	public Camera			cam;
+	public GameObject		zipline;
+	public LayerMask		layerMask;
+	public float			snappingRadius = 5f;
+	public float			borderOffset = .32f;
 
 	bool		_inPlacement = false;
 	Vector3		_worldPos;
-	GameObject	_ziplineInst;
-	ZiplineBar	_ziplineBarScript;
+	GameObject	_endZiplineInst;
+	ZiplineBar	_endZiplineBarScript;
+	GameObject	_startZiplineInst;
+	ZiplineBar	_startZiplineBarScript;
+	float		_startYOffset;
 	GameObject	_target = null;
 	Vector2		_targetBox;
+
+	void Awake() {
+		_startYOffset = boxCollider.bounds.size.y / 2;
+	}
 
 	void Update() {
 		if (Input.GetButtonDown("Fire1") && _inPlacement && _target != null) {
 			_inPlacement = false;
-			_ziplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Normal);
+			_endZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Normal);
 		}
 		else if (Input.GetButtonDown("Skill1")) {
 			_inPlacement = !_inPlacement;
 			if (_inPlacement) {
 				updateWorldPos();
-				_ziplineInst = Instantiate(zipline);
-				_ziplineInst.transform.position = _worldPos;
-				_ziplineBarScript = _ziplineInst.GetComponent<ZiplineBar>();
+
+				// instanciate start ziplineBar
+				_startZiplineInst = Instantiate(zipline);
+				_startZiplineInst.transform.position = new Vector3(transform.position.x, transform.position.y - _startYOffset, transform.position.z);
+				_startZiplineBarScript = _startZiplineInst.GetComponent<ZiplineBar>();
+
+				// instanciate end ziplineBar
+				_endZiplineInst = Instantiate(zipline);
+				_endZiplineInst.transform.position = _worldPos;
+				_endZiplineBarScript = _endZiplineInst.GetComponent<ZiplineBar>();
 			} else {
-				Destroy(_ziplineInst);
+				Destroy(_endZiplineInst);
+				Destroy(_startZiplineInst);
 			}
 		}
 	}
@@ -54,8 +70,8 @@ public class ZiplineGun : MonoBehaviour
 
 			// if no target found simply follow the cursor
 			if (_target == null) {
-				_ziplineInst.transform.position = _worldPos;
-				_ziplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Invalid);
+				_endZiplineInst.transform.position = _worldPos;
+				_endZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Invalid);
 			}
 			// else snap to the target
 			else {
@@ -68,9 +84,12 @@ public class ZiplineGun : MonoBehaviour
 				if (xPos > maxP)
 					xPos = maxP;
 				float yPos = t_pos.y + _targetBox.y / 2;
-				_ziplineInst.transform.position = new Vector3(xPos, yPos, _ziplineInst.transform.position.z);
-				_ziplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Valid);
+				_endZiplineInst.transform.position = new Vector3(xPos, yPos, _endZiplineInst.transform.position.z);
+				_endZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Valid);
 			}
+
+			// update start zipline position
+			_startZiplineInst.transform.position = new Vector3(transform.position.x, transform.position.y - _startYOffset, transform.position.z);
 		}
 	}
 

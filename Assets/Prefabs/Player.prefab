@@ -178,6 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2403ce93a6d17419aaa071146c2364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boxCollider: {fileID: 3725663348894816095}
   cam: {fileID: 0}
   zipline: {fileID: 1128268477635079884, guid: 11a4993917b665f42a6c15f324841e23, type: 3}
   layerMask:
