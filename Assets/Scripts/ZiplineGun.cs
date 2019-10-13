@@ -19,6 +19,7 @@ public class ZiplineGun : MonoBehaviour
 	GameObject	_startZiplineInst = null;
 	ZiplineBar	_startZiplineBarScript;
 	float		_startYOffset;
+	bool		_wasGroundedLast = true;
 	GameObject	_target = null;
 	Vector2		_targetBox;
 
@@ -29,9 +30,12 @@ public class ZiplineGun : MonoBehaviour
 	void Update() {
 		if (Input.GetButtonDown("Fire1") && _inPlacement && _target != null && movementController.grounded()) {
 			_inPlacement = false;
+			_startZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Normal);
 			_endZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Normal);
 			_startZiplineInst = null;
 			_endZiplineInst = null;
+			_startZiplineBarScript = null;
+			_endZiplineBarScript = null;
 		}
 		else if (Input.GetButtonDown("Skill1")) {
 			_inPlacement = !_inPlacement;
@@ -42,11 +46,13 @@ public class ZiplineGun : MonoBehaviour
 				_startZiplineInst = Instantiate(zipline);
 				_startZiplineInst.transform.position = new Vector3(transform.position.x, transform.position.y - _startYOffset, transform.position.z - 1.0f);
 				_startZiplineBarScript = _startZiplineInst.GetComponent<ZiplineBar>();
+				_startZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Valid);
 
 				// instanciate end ziplineBar
 				_endZiplineInst = Instantiate(zipline);
 				_endZiplineInst.transform.position = new Vector3(_worldPos.x, _worldPos.y, _worldPos.z - 1.0f);
 				_endZiplineBarScript = _endZiplineInst.GetComponent<ZiplineBar>();
+				_endZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Valid);
 
 				_startZiplineBarScript.initZipline(_endZiplineInst);
 			} else {
@@ -56,11 +62,6 @@ public class ZiplineGun : MonoBehaviour
 				_endZiplineInst = null;
 			}
 		}
-		bool	grounded = movementController.grounded();
-		if (_startZiplineInst != null)
-			_startZiplineInst.SetActive(grounded);
-		if (_endZiplineInst != null)
-			_endZiplineInst.SetActive(grounded);
 	}
 
 	void	FixedUpdate() {
@@ -102,6 +103,13 @@ public class ZiplineGun : MonoBehaviour
 
 			// update start zipline position
 			_startZiplineInst.transform.position = new Vector3(transform.position.x, transform.position.y - _startYOffset, transform.position.z - 1.0f);
+			if (movementController.grounded() != _wasGroundedLast) {
+				if (_wasGroundedLast)
+					_startZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Invalid);
+				else
+					_startZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Valid);
+			}
+			_wasGroundedLast = movementController.grounded();
 		}
 	}
 
