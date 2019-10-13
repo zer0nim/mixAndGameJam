@@ -8,6 +8,7 @@ public class ZiplineGun : MonoBehaviour
 	public GameObject	zipline;
 	public LayerMask	layerMask;
 	public float		snappingRadius = 5f;
+	public float		borderOffset = .32f;
 
 	bool		_inPlacement = false;
 	Vector3		_worldPos;
@@ -56,10 +57,12 @@ public class ZiplineGun : MonoBehaviour
 			else {
 				Vector2 t_pos = _target.transform.position;
 				float xPos = _worldPos.x;
-				if (xPos < t_pos.x - _targetBox.x / 2)
-					xPos = t_pos.x - _targetBox.x / 2;
-				if (xPos > t_pos.x + _targetBox.x / 2)
-					xPos = t_pos.x + _targetBox.x / 2;
+				float minP = t_pos.x - _targetBox.x / 2 + borderOffset;
+				float maxP = t_pos.x + _targetBox.x / 2 - borderOffset;
+				if (xPos < minP)
+					xPos = minP;
+				if (xPos > maxP)
+					xPos = maxP;
 				float yPos = t_pos.y + _targetBox.y / 2;
 				_ziplineInst.transform.position = new Vector3(xPos, yPos, _ziplineInst.transform.position.z);
 			}
