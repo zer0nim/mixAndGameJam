@@ -59,4 +59,8 @@ public class MovementController : MonoBehaviour
 		_jumpRequest = false;
 		_onGround = false;
 	}
+
+	public bool	grounded() {
+		return _onGround;
+	}
 }

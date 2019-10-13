@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class ZiplineGun : MonoBehaviour
 {
-	public BoxCollider2D	boxCollider;
-	public Camera			cam;
-	public GameObject		zipline;
-	public LayerMask		layerMask;
-	public float			snappingRadius = 5f;
-	public float			borderOffset = .32f;
+	public BoxCollider2D		boxCollider;
+	public MovementController	movementController;
+	public Camera				cam;
+	public GameObject			zipline;
+	public LayerMask			layerMask;
+	public float				snappingRadius = 5f;
+	public float				borderOffset = .32f;
 
 	bool		_inPlacement = false;
 	Vector3		_worldPos;
-	GameObject	_endZiplineInst;
+	GameObject	_endZiplineInst = null;
 	ZiplineBar	_endZiplineBarScript;
-	GameObject	_startZiplineInst;
+	GameObject	_startZiplineInst = null;
 	ZiplineBar	_startZiplineBarScript;
 	float		_startYOffset;
 	GameObject	_target = null;
@@ -26,9 +27,11 @@ public class ZiplineGun : MonoBehaviour
 	}
 
 	void Update() {
-		if (Input.GetButtonDown("Fire1") && _inPlacement && _target != null) {
+		if (Input.GetButtonDown("Fire1") && _inPlacement && _target != null && movementController.grounded()) {
 			_inPlacement = false;
 			_endZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Normal);
+			_startZiplineInst = null;
+			_endZiplineInst = null;
 		}
 		else if (Input.GetButtonDown("Skill1")) {
 			_inPlacement = !_inPlacement;
@@ -47,8 +50,15 @@ public class ZiplineGun : MonoBehaviour
 			} else {
 				Destroy(_endZiplineInst);
 				Destroy(_startZiplineInst);
+				_startZiplineInst = null;
+				_endZiplineInst = null;
 			}
 		}
+		bool	grounded = movementController.grounded();
+		if (_startZiplineInst != null)
+			_startZiplineInst.SetActive(grounded);
+		if (_endZiplineInst != null)
+			_endZiplineInst.SetActive(grounded);
 	}
 
 	void	FixedUpdate() {
