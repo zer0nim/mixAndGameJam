@@ -83,4 +83,7 @@ public class ZiplineBar : MonoBehaviour
 		_line.SetPosition(0, _startPos);
 		_line.SetPosition(1, _endPos);
 	}
+
+	public Vector3	getStartPos() { return _startPos; }
+	public Vector3	getEndPos() { return _endPos; }
 }
