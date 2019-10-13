@@ -118,4 +118,9 @@ public class ZiplineGun : MonoBehaviour
 		_worldPos = cam.ScreenToWorldPoint(Input.mousePosition, Camera.MonoOrStereoscopicEye.Mono);
 		_worldPos.z = transform.position.z;
 	}
+
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.CompareTag("zipline"))
+			print("Hey " + other.name);
+	}
 }

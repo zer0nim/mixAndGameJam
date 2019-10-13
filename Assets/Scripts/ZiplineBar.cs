@@ -58,8 +58,9 @@ public class ZiplineBar : MonoBehaviour
 		Vector3	center;
 
 		// create child gameObject and add a collider to it
-		BoxCollider2D col = new GameObject("Collider").AddComponent<BoxCollider2D>();
+		BoxCollider2D col = new GameObject("collider").AddComponent<BoxCollider2D>();
 		col.transform.parent = _line.transform;
+		col.tag = "zipline";
 
 		// set size and position
 		lineLength = Vector3.Distance(_startPos, _endPos);
