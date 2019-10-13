@@ -16,11 +16,13 @@ public class ZiplineBar : MonoBehaviour
 
 	LineRenderer	_line = null;
 	GameObject		_ziplineEnd = null;
+	Vector3			_startPos;
+	Vector3			_endPos;
+	bool			_constantUpdate = true;
 
 	void FixedUpdate() {
-		if (_ziplineEnd != null) {
-			_line.SetPosition(0, transform.position + localCableOffset.localPosition);
-			_line.SetPosition(1, _ziplineEnd.transform.position + localCableOffset.localPosition);
+		if (_ziplineEnd != null && _constantUpdate) {
+			updateLinePos();
 		}
 	}
 
@@ -43,5 +45,41 @@ public class ZiplineBar : MonoBehaviour
 		_line.useWorldSpace = true;
 		_line.numCapVertices = 50;
 		_line.sortingOrder = 4;
+	}
+
+	public void	confirmCreation() {
+		_constantUpdate = false;
+		updateLinePos();
+		addColider();
+	}
+
+	void	addColider() {
+		float	lineLength;
+		Vector3	center;
+
+		// create child gameObject and add a collider to it
+		BoxCollider2D col = new GameObject("Collider").AddComponent<BoxCollider2D>();
+		col.transform.parent = _line.transform;
+
+		// set size and position
+		lineLength = Vector3.Distance(_startPos, _endPos);
+		col.size = new Vector2(lineLength, cableWidth);
+		center = (_startPos + _endPos) / 2;
+		col.transform.position = center;
+
+		// set rotation
+		Vector2 diff = _startPos - _endPos;
+		diff.Normalize();
+		float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+		col.transform.rotation = Quaternion.Euler(0f, 0f, rot_z);
+
+		col.isTrigger = true;
+	}
+
+	void	updateLinePos() {
+		_startPos = transform.position + localCableOffset.localPosition;
+		_endPos = _ziplineEnd.transform.position + localCableOffset.localPosition;
+		_line.SetPosition(0, _startPos);
+		_line.SetPosition(1, _endPos);
 	}
 }

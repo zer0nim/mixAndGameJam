@@ -30,8 +30,9 @@ public class ZiplineGun : MonoBehaviour
 	void Update() {
 		if (Input.GetButtonDown("Fire1") && _inPlacement && _target != null && movementController.grounded()) {
 			_inPlacement = false;
-			_startZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Normal);
 			_endZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Normal);
+			_startZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Normal);
+			_startZiplineBarScript.confirmCreation();
 			_startZiplineInst = null;
 			_endZiplineInst = null;
 			_startZiplineBarScript = null;
