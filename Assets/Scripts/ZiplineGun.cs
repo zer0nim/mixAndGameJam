@@ -13,12 +13,14 @@ public class ZiplineGun : MonoBehaviour
 	bool		_inPlacement = false;
 	Vector3		_worldPos;
 	GameObject	_ziplineInst;
+	ZiplineBar	_ziplineBarScript;
 	GameObject	_target = null;
 	Vector2		_targetBox;
 
 	void Update() {
-		if (Input.GetButtonDown("Fire1") && _inPlacement) {
+		if (Input.GetButtonDown("Fire1") && _inPlacement && _target != null) {
 			_inPlacement = false;
+			_ziplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Normal);
 		}
 		else if (Input.GetButtonDown("Skill1")) {
 			_inPlacement = !_inPlacement;
@@ -26,6 +28,7 @@ public class ZiplineGun : MonoBehaviour
 				updateWorldPos();
 				_ziplineInst = Instantiate(zipline);
 				_ziplineInst.transform.position = _worldPos;
+				_ziplineBarScript = _ziplineInst.GetComponent<ZiplineBar>();
 			} else {
 				Destroy(_ziplineInst);
 			}
@@ -52,6 +55,7 @@ public class ZiplineGun : MonoBehaviour
 			// if no target found simply follow the cursor
 			if (_target == null) {
 				_ziplineInst.transform.position = _worldPos;
+				_ziplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Invalid);
 			}
 			// else snap to the target
 			else {
@@ -65,6 +69,7 @@ public class ZiplineGun : MonoBehaviour
 					xPos = maxP;
 				float yPos = t_pos.y + _targetBox.y / 2;
 				_ziplineInst.transform.position = new Vector3(xPos, yPos, _ziplineInst.transform.position.z);
+				_ziplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Valid);
 			}
 		}
 	}

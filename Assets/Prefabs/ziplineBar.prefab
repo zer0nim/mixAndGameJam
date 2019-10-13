@@ -69,7 +69,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: f264d73dfd7f44f49922f30c9360548b, type: 3}
+  m_Sprite: {fileID: 2160487933390078379, guid: d3530ef15151fb64da2e0c88c23b8c80,
+    type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -89,6 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1128268477635079885}
+  - component: {fileID: 244742544}
   m_Layer: 0
   m_Name: ziplineBar
   m_TagString: Untagged
@@ -111,3 +113,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &244742544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128268477635079884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b78f04411659fce4293cb44ae1b4b64c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalSprite: {fileID: 2160487933390078379, guid: d3530ef15151fb64da2e0c88c23b8c80,
+    type: 3}
+  validSprite: {fileID: 6240973728518390339, guid: d3530ef15151fb64da2e0c88c23b8c80,
+    type: 3}
+  invalidSprite: {fileID: -6219852754082207905, guid: d3530ef15151fb64da2e0c88c23b8c80,
+    type: 3}
+  spriteRenderer: {fileID: 1128268477321835837}
