@@ -40,13 +40,15 @@ public class ZiplineGun : MonoBehaviour
 
 				// instanciate start ziplineBar
 				_startZiplineInst = Instantiate(zipline);
-				_startZiplineInst.transform.position = new Vector3(transform.position.x, transform.position.y - _startYOffset, transform.position.z);
+				_startZiplineInst.transform.position = new Vector3(transform.position.x, transform.position.y - _startYOffset, transform.position.z - 1.0f);
 				_startZiplineBarScript = _startZiplineInst.GetComponent<ZiplineBar>();
 
 				// instanciate end ziplineBar
 				_endZiplineInst = Instantiate(zipline);
-				_endZiplineInst.transform.position = _worldPos;
+				_endZiplineInst.transform.position = new Vector3(_worldPos.x, _worldPos.y, _worldPos.z - 1.0f);
 				_endZiplineBarScript = _endZiplineInst.GetComponent<ZiplineBar>();
+
+				_startZiplineBarScript.initZipline(_endZiplineInst);
 			} else {
 				Destroy(_endZiplineInst);
 				Destroy(_startZiplineInst);
@@ -80,7 +82,7 @@ public class ZiplineGun : MonoBehaviour
 
 			// if no target found simply follow the cursor
 			if (_target == null) {
-				_endZiplineInst.transform.position = _worldPos;
+				_endZiplineInst.transform.position = new Vector3(_worldPos.x, _worldPos.y, _worldPos.z - 1.0f);
 				_endZiplineBarScript.setSpriteStatus(ZiplineBar.ZiplineStatus.Invalid);
 			}
 			// else snap to the target
@@ -99,7 +101,7 @@ public class ZiplineGun : MonoBehaviour
 			}
 
 			// update start zipline position
-			_startZiplineInst.transform.position = new Vector3(transform.position.x, transform.position.y - _startYOffset, transform.position.z);
+			_startZiplineInst.transform.position = new Vector3(transform.position.x, transform.position.y - _startYOffset, transform.position.z - 1.0f);
 		}
 	}
 

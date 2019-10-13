@@ -132,7 +132,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3725663348726538148}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &244742541
+--- !u!1001 &331516439
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -147,17 +147,17 @@ PrefabInstance:
     - target: {fileID: 1128268477635079885, guid: 11a4993917b665f42a6c15f324841e23,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.258925
+      value: 1.6021106
       objectReference: {fileID: 0}
     - target: {fileID: 1128268477635079885, guid: 11a4993917b665f42a6c15f324841e23,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.6377524
+      value: -0.86446095
       objectReference: {fileID: 0}
     - target: {fileID: 1128268477635079885, guid: 11a4993917b665f42a6c15f324841e23,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 1128268477635079885, guid: 11a4993917b665f42a6c15f324841e23,
         type: 3}
@@ -201,37 +201,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11a4993917b665f42a6c15f324841e23, type: 3}
---- !u!1 &244742542 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1128268477635079884, guid: 11a4993917b665f42a6c15f324841e23,
-    type: 3}
-  m_PrefabInstance: {fileID: 244742541}
-  m_PrefabAsset: {fileID: 0}
---- !u!212 &244742543 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1128268477321835837, guid: 11a4993917b665f42a6c15f324841e23,
-    type: 3}
-  m_PrefabInstance: {fileID: 244742541}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &244742544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244742542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b78f04411659fce4293cb44ae1b4b64c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  normalSprite: {fileID: 2160487933390078379, guid: d3530ef15151fb64da2e0c88c23b8c80,
-    type: 3}
-  validSprite: {fileID: 6240973728518390339, guid: d3530ef15151fb64da2e0c88c23b8c80,
-    type: 3}
-  invalidSprite: {fileID: -6219852754082207905, guid: d3530ef15151fb64da2e0c88c23b8c80,
-    type: 3}
-  spriteRenderer: {fileID: 244742543}
 --- !u!1001 &373562421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -592,7 +561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!120 &1022499764
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -610,7 +579,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 160b5d32f4378674983612e0e5547c57, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -642,7 +611,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.0714283
+        value: 0.08094978
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -682,7 +651,7 @@ LineRenderer:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
-    numCapVertices: 0
+    numCapVertices: 50
     alignment: 0
     textureMode: 0
     shadowBias: 0.5
@@ -1313,7 +1282,7 @@ Transform:
   - {fileID: 1132244593}
   - {fileID: 1925178067}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2122473045
 GameObject:
@@ -1519,7 +1488,7 @@ PrefabInstance:
     - target: {fileID: 3725663348894816093, guid: e94ed3b0159fa7641bbea20277394e84,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3725663348894816093, guid: e94ed3b0159fa7641bbea20277394e84,
         type: 3}
@@ -1540,6 +1509,11 @@ PrefabInstance:
       propertyPath: cam
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 3725663348894816092, guid: e94ed3b0159fa7641bbea20277394e84,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e94ed3b0159fa7641bbea20277394e84, type: 3}
 --- !u!1001 &3782586034287660272
